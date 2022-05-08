@@ -1,0 +1,13 @@
+server:
+  port: 9099
+spring:
+  application:
+    name: slack-off-at-work
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html

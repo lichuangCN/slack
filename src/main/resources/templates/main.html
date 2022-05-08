@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>摸鱼时间表</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/vue.min.js}"></script>
+</head>
+<body>
+<div id="app">
+    <span>今天是 {{obj.date}} ,{{obj.weekday}}</span>
+    <br/>
+    <span>你好，摸鱼人，工作再累，一定不要忘记摸鱼哦 !</span>
+    <br/>
+    <span>有事没事起身去茶水间去廊道去天台走走，别老在工位上坐着。 多喝点水，钱是老板的，但命是自己的 !</span>
+    <br/>
+    <span>距离【周末】放假还有 {{obj.toWeekendDay}} 天</span>
+    <br/>
+    <span>距离【元旦】放假还有 {{obj.toNewYearDay}} 天</span>
+    <br/>
+    <span>距离【春节】放假还有 {{obj.toChineseNewYearDay}} 天</span>
+    <br/>
+    <span>距离【清明节】放假还有 {{obj.toQingMingDay}} 天</span>
+    <br/>
+    <span>距离【劳动节】放假还有 {{obj.toWorkerDay}} 天</span>
+    <br/>
+    <span>距离【端午节】放假还有 {{obj.toDragonBoatFestivalDay}} 天</span>
+    <br/>
+    <span>距离【中秋节】放假还有 {{obj.toMidAutumnFestivalDay}} 天</span>
+    <br/>
+    <span>距离【国庆节】放假还有 {{obj.toNationalDay}} 天</span>
+    <br/>
+</div>
+</body>
+<script>
+    const SUCCESS_CODE = 1000
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                obj: {
+                    date: '',
+                    weekday: '',
+                    toWeekendDay: '',
+                    toNewYearDay: '',
+                    toChineseNewYearDay: '',
+                    toQingMingDay: '',
+                    toWorkerDay: '',
+                    toDragonBoatFestivalDay: '',
+                    toMidAutumnFestivalDay: '',
+                    toNationalDay: '',
+                }
+            }
+        },
+        mounted() {
+            this.req()
+        },
+
+        methods: {
+            req() {
+                let that = this
+                $.ajax({
+                    type: 'GET',
+                    async: false,
+                    url: '/index/item',
+                    contentType: 'application/json;charset=utf-8',
+                    data: "",
+                    dataType: "json",
+                    success: function (res) {
+                        if (res.code == SUCCESS_CODE) {
+                            that.obj = res.data
+                        } else {
+                            console.log(res)
+                        }
+                    },
+                    error: function (res) {
+                        console.log(res)
+                    }
+                })
+            }
+        }
+    })
+</script>
+</html>

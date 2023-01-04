@@ -159,7 +159,7 @@ public class IndexBusinessServiceImpl implements IndexBusinessService {
      */
     private Integer toChineseNewYearDay(LocalDateTime today) {
         int year = today.getYear();
-        LunarSolarConverter.Solar solar = LunarSolarConverter.LunarToSolar(year + 1, 1, 1);
+        LunarSolarConverter.Solar solar = LunarSolarConverter.LunarToSolar(year, 1, 1);
         StringBuilder builder = new StringBuilder();
         // YYYY-M-d
         String date = builder.append(solar.getSolarYear()).append("-")
@@ -167,6 +167,16 @@ public class IndexBusinessServiceImpl implements IndexBusinessService {
                 .append(solar.getSolarDay()).toString();
         LocalDateTime target = LocalDateUtil.parse(LocalDateUtil.DATE_PATTERN_STR1, date);
         Integer days = LocalDateUtil.daysBetweenDate(today, target);
+        if (days < 0) {
+            solar = LunarSolarConverter.LunarToSolar(year, 1, 1);
+            builder = new StringBuilder();
+            // YYYY-M-d
+            date = builder.append(solar.getSolarYear()).append("-")
+                    .append(solar.getSolarMonth()).append("-")
+                    .append(solar.getSolarDay()).toString();
+            target = LocalDateUtil.parse(LocalDateUtil.DATE_PATTERN_STR1, date);
+            days = LocalDateUtil.daysBetweenDate(today, target);
+        }
         return days;
     }
 

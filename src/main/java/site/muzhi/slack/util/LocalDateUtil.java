@@ -44,9 +44,6 @@ public class LocalDateUtil {
     public static Integer daysBetweenDate(LocalDateTime beginDate, LocalDateTime endDate) {
         assertNotNull(beginDate);
         assertNotNull(endDate);
-        if (beginDate.isAfter(endDate)) {
-            throw new RuntimeException("endDate must be later.");
-        }
         long t1 = beginDate.toEpochSecond(ZoneOffset.ofHours(0));
         long day1 = t1 / (60 * 60 * 24);
         long t2 = endDate.toEpochSecond(ZoneOffset.ofHours(0));

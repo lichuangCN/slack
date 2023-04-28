@@ -168,7 +168,7 @@ public class IndexBusinessServiceImpl implements IndexBusinessService {
         LocalDateTime target = LocalDateUtil.parse(LocalDateUtil.DATE_PATTERN_STR1, date);
         Integer days = LocalDateUtil.daysBetweenDate(today, target);
         if (days < 0) {
-            solar = LunarSolarConverter.LunarToSolar(year, 1, 1);
+            solar = LunarSolarConverter.LunarToSolar(year + 1, 1, 1);
             builder = new StringBuilder();
             // YYYY-M-d
             date = builder.append(solar.getSolarYear()).append("-")
